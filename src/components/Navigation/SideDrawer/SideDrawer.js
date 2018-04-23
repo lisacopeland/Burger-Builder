@@ -9,9 +9,11 @@ import classes from './SideDrawer.css';
 const sideDrawer = (props) => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
 
-    if (props.Open) {
+    if (props.open) {
         attachedClasses = [classes.SideDrawer, classes.Open];
     }
+
+    console.log('props.Open = ' + props.open);
 
     return (
         <Aux>
