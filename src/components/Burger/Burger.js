@@ -1,9 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
+    console.log(props);
     // Object.keys returns an array of the keys (in this case the ingredients passed down 
     // in props) .map performs an operation on each element, named igKey. we then turn each 
     // of those elements into an array with the number of elements of each ingredient, 
@@ -33,4 +35,4 @@ const burger = (props) => {
     );
 };
 
-export default burger;
+export default withRouter(burger);

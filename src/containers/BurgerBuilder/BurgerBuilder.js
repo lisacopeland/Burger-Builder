@@ -34,6 +34,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         axios.get('https://lisa-burger-builder.firebaseio.com/ingredients.json')
         .then(response => {
             console.log(response);
@@ -110,7 +111,7 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         console.log('Continuing!');
-        this.setState({ loading: true});
+/*         this.setState({ loading: true});
         const order = {
             ingrediedents: this.state.ingredients,
             price: this.state.totalPrice,
@@ -141,6 +142,16 @@ class BurgerBuilder extends Component {
                     purchasing: false
                 });
             });
+     */
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+        queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+    }
+    const queryString = queryParams.join('&');
+    this.props.history.push({
+        pathname: '/checkout',
+        search: '?' + queryString
+    });
     }
 
     render () {
