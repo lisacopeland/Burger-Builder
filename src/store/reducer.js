@@ -1,7 +1,12 @@
 import * as actionTypes from "./actions";
 
 const initialState = {
-  ingredients: [],
+  ingredients: {
+    salad: 0,
+    bacon: 0,
+    cheese: 0,
+    meat: 0
+  },
   price: 4,
   purchaseable: false
 };
@@ -13,54 +18,41 @@ const Ingredient_Prices = {
   meat: 2.5,
 };
 
-let oldCount = 0;
-let updatedCount = 0;
-let updatedIngredients = [];
 let oldPrice = 0;
 let newPrice = 0;
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
-        oldCount = state.ingredients[action.ingredientType];
-        updatedCount = oldCount + 1;
-        updatedIngredients = {
-            ...state.ingredients
-        }
-        updatedIngredients[action.ingredientType] = updatedCount;
         const priceAddition = Ingredient_Prices[action.ingredientType];
         oldPrice = state.price;
         newPrice = oldPrice + priceAddition;
       return {
         ...state,
-        ingredients: updatedIngredients,
+        ingredients: {
+          ...state.ingredients,
+          [action.ingredientType]: state.ingredients[action.ingredientType] + 1
+        }, 
         price: newPrice,
-        purchaseable: updatePurchaseState(updatedIngredients)
+        purchaseable: updatePurchaseState(state.ingredients)
       };
     case actionTypes.REMOVE_INGREDIENT:
-        oldCount = state.ingredients[action.ingredientType];
-        if (oldCount <= 0) {
-          return state;
-        }
-        updatedCount = oldCount - 1;
         // Create a constant with the ingredients from state and update it with the new
         // count
-        updatedIngredients = {
-          ...state.ingredients,
-        };
-        updatedIngredients[action.ingredientType] = updatedCount;
         const priceDeduction = Ingredient_Prices[action.ingredientType];
-        oldPrice = this.state.totalPrice;
+        oldPrice = state.price;
         newPrice = oldPrice - priceDeduction;
       return {
         ...state,
-        ingredients: updatedIngredients,
+        ingredients: {
+          ...state.ingredients,
+          [action.ingredientType]: state.ingredients[action.ingredientType] - 1
+        }, 
         price: newPrice,
-        purchaseable: updatePurchaseState(updatedIngredients)
+        purchaseable: updatePurchaseState(state.ingredients)
       };
-    default: console.log("Got default");
+    default: return state;
   }
-  return state;
 };
 
 const updatePurchaseState = (ingredients) => {
@@ -74,7 +66,7 @@ const updatePurchaseState = (ingredients) => {
             .reduce((sum, el) => {
                 return sum + el;
             }, 0);
-        this.setState({purchaseable: sum > 0});            
+        return (sum > 0) ? true : false;            
     }
 
 export default reducer;

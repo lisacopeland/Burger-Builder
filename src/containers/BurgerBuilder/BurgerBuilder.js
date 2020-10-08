@@ -22,9 +22,6 @@ import * as actionTypes from "../../store/actions";
 class BurgerBuilder extends Component {
 
     state = {
-        // ingredients: null,
-        // totalPrice: 4,
-        // purchaseable: false,
         purchasing: false,
         loading: false,
         error: false
@@ -137,8 +134,8 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Burger ingredients={this.props.ingredients}/>
                 <BuildControls 
-                    ingredientAdded={(type) => this.props.onAddIngredient(type)}
-                    ingredientRemoved={(type) => this.props.onRemoveIngredient(type)}
+                    ingredientAdded={this.props.onAddIngredient}
+                    ingredientRemoved={this.props.onRemoveIngredient}
                     disabled={disabledInfo}
                     purchaseable={this.props.purchaseable}
                     ordered={this.purchaseHandler}
@@ -173,7 +170,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients,
-    price: state.price
+    price: state.price,
+    purchaseable: state.purchaseable
   };
 };
 
