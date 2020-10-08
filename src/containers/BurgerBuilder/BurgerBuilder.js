@@ -12,13 +12,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 
-/* const Ingredient_Prices = {
-    salad: .50,
-    bacon: .85,
-    cheese: 1.25,
-    meat: 2.50
-}
- */
 class BurgerBuilder extends Component {
 
     state = {
@@ -42,59 +35,6 @@ class BurgerBuilder extends Component {
         //  });
     }
    
-/*     updatePurchaseState (ingredients) {
-        // Take a copy of ingredients object, turn it into an array mapping each element and 
-        // using reduce to find the sum of all ingredient quantities
-
-        const sum = Object.keys(ingredients)
-            .map(igKey => {
-                return ingredients[igKey];
-            })
-            .reduce((sum, el) => {
-                return sum + el;
-            }, 0);
-        this.setState({purchaseable: sum > 0});            
-    } */
-
-/*     addIngredientHandler = (type) => {
-        const oldCount = this.state.ingredients[type];
-        const updatedCount = oldCount +1;
-        // Create a constant with the ingredients from state and update it with the new 
-        // count 
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        updatedIngredients[type] = updatedCount;
-        const priceAddition = Ingredient_Prices[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + priceAddition;
-        this.setState( 
-            { ingredients: updatedIngredients, 
-              totalPrice : newPrice } );
-        this.updatePurchaseState(updatedIngredients);
-    }
-
-    removeIngredientHandler = (type) => {
-        const oldCount = this.state.ingredients[type];
-        if (oldCount <= 0) { 
-            return;
-        }
-        const updatedCount = oldCount -1;
-        // Create a constant with the ingredients from state and update it with the new 
-        // count 
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        updatedIngredients[type] = updatedCount;
-        const priceDeduction = Ingredient_Prices[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice - priceDeduction;
-        this.setState( 
-            { ingredients: updatedIngredients, 
-              totalPrice : newPrice } ); 
-        this.updatePurchaseState(updatedIngredients);            
-    } */
-
     purchaseHandler = () => {
         this.setState({purchasing: true});
     }
@@ -104,17 +44,17 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        console.log('Continuing!');
+        // console.log('Continuing!');
 
-        const queryParams = [];
-        for (let i in this.state.ingredients) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-        queryParams.push('price=' + this.state.totalPrice);
-        const queryString = queryParams.join('&');
+        // const queryParams = [];
+        // for (let i in this.state.ingredients) {
+        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        // }
+        // queryParams.push('price=' + this.state.totalPrice);
+        // const queryString = queryParams.join('&');
         this.props.history.push({
             pathname: '/checkout',
-            search: '?' + queryString
+            //search: '?' + queryString
         });
     }
 

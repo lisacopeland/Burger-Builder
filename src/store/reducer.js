@@ -18,38 +18,38 @@ const Ingredient_Prices = {
   meat: 2.5,
 };
 
-let oldPrice = 0;
-let newPrice = 0;
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
-        const priceAddition = Ingredient_Prices[action.ingredientType];
-        oldPrice = state.price;
-        newPrice = oldPrice + priceAddition;
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
           [action.ingredientType]: state.ingredients[action.ingredientType] + 1
         }, 
-        price: newPrice,
+        price: state.price + Ingredient_Prices[action.ingredientType],
         purchaseable: updatePurchaseState(state.ingredients)
       };
     case actionTypes.REMOVE_INGREDIENT:
-        // Create a constant with the ingredients from state and update it with the new
-        // count
-        const priceDeduction = Ingredient_Prices[action.ingredientType];
-        oldPrice = state.price;
-        newPrice = oldPrice - priceDeduction;
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
           [action.ingredientType]: state.ingredients[action.ingredientType] - 1
         }, 
-        price: newPrice,
+        price: state.price - Ingredient_Prices[action.ingredientType],
         purchaseable: updatePurchaseState(state.ingredients)
+      };
+    case actionTypes.INITIALIZE_BURGER:
+      return {
+        ingredients: {
+          salad: 0,
+          bacon: 0,
+          cheese: 0,
+          meat: 0
+        },
+        price: 4,
+        purchaseable: false
       };
     default: return state;
   }

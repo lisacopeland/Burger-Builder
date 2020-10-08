@@ -4,6 +4,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from "../../../axios-orders";
 import Input from '../../../components/UI/Input/Input';
 import classes from "./ContactData.css";
+import { connect } from "react-redux";
+import * as actionTypes from "../../../store/actions";
 
 class ContactData extends Component {
   state = {
@@ -108,7 +110,7 @@ class ContactData extends Component {
         touched: false
       },
     },
-    price: 0,
+    // price: 0,
     loading: false,
     formIsValid: false
   };
@@ -130,6 +132,7 @@ class ContactData extends Component {
       .post("/orders.json", order)
       .then((response) => {
         console.log(response);
+        this.props.onReinitialize();
         this.setState({
           loading: false,
         });
@@ -222,4 +225,18 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price: state.price
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onReinitialize: () =>
+        dispatch({ type: actionTypes.INITIALIZE_BURGER })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
