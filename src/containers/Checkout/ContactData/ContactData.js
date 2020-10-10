@@ -5,7 +5,7 @@ import axios from "../../../axios-orders";
 import Input from '../../../components/UI/Input/Input';
 import classes from "./ContactData.css";
 import { connect } from "react-redux";
-import * as actionTypes from "../../../store/actions";
+import * as actionCreators from '../../../store/actions/index';
 
 class ContactData extends Component {
   state = {
@@ -235,8 +235,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onReinitialize: () =>
-        dispatch({ type: actionTypes.INITIALIZE_BURGER })
-  };
+        dispatch(actionCreators.initializeBurger())
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
