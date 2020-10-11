@@ -15,40 +15,41 @@ const Ingredient_Prices = {
   meat: 2.5,
 };
 
-const reducer = (state = initialState, action) => {
-  let newIngredients;
-  switch (action.type) {
-    case actionTypes.ADD_INGREDIENT:
-      newIngredients = {
-          ...state.ingredients,
-          [action.ingredientType]: state.ingredients[action.ingredientType] + 1
-        };
+const addIngredient = (state, action) => {
+      const newIngredients = updateObject(state.ingredients, { [action.ingredientType]: state.ingredients[action.ingredientType] + 1});
       return updateObject(state, 
-        {ingredients: newIngredients,
+        {
+         ingredients: newIngredients,
          price: state.price + Ingredient_Prices[action.ingredientType],
-         purchaseable: updatePurchaseState(state.ingredients)});
-    case actionTypes.REMOVE_INGREDIENT:
-      newIngredients = {
-          ...state.ingredients,
-          [action.ingredientType]: state.ingredients[action.ingredientType] - 1
-        };
-      return updateObject(state, {
+         purchaseable: updatePurchaseState(state.ingredients)
+        });
+}
+
+const removeIngredient = (state, action) => {
+      const newIngredients = updateObject(state.ingredients, { [action.ingredientType]: state.ingredients[action.ingredientType] - 1});
+      return updateObject(state, 
+        {
          ingredients: newIngredients,
          price: state.price - Ingredient_Prices[action.ingredientType],
-         purchaseable: updatePurchaseState(state.ingredients)});
-    case actionTypes.SET_INGREDIENTS: 
+         purchaseable: updatePurchaseState(state.ingredients)
+        });
+}
+
+const setIngredients = (state, action) => {
       return updateObject(state, {
-          ...state,
-          ingredients: action.ingredients,
+          ingredients: {
+            salad: action.ingredients.salad,
+            bacon: action.ingredients.bacon,
+            cheese: action.ingredients.cheese,
+            meat: action.ingredients.meat
+          },
           price: 4,
           error: false,
           purchaseable: updatePurchaseState(state.ingredients)});
-    case actionTypes.FETCH_INGREDIENTS_FAILED:
-      return updateObject(state, {
-        error: true
-      });
-    case actionTypes.INITIALIZE_BURGER:
-      return updateObject(state, {
+}
+
+const initBurger = (state, action) => {
+    return updateObject(state, {
         ingredients: {
           salad: 0,
           bacon: 0,
@@ -58,9 +59,7 @@ const reducer = (state = initialState, action) => {
         price: 4,
         purchaseable: false            
       });
-    default: return state;
-  }
-};
+}
 
 const updatePurchaseState = (ingredients) => {
         // Take a copy of ingredients object, turn it into an array mapping each element and 
@@ -79,5 +78,21 @@ const updatePurchaseState = (ingredients) => {
           return false;
         }
     }
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_INGREDIENT:
+      return addIngredient(state, action);
+    case actionTypes.REMOVE_INGREDIENT:
+      return removeIngredient(state, action);
+    case actionTypes.SET_INGREDIENTS: 
+      return setIngredients(state, action);
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return updateObject(state, { error: true });
+    case actionTypes.INITIALIZE_BURGER:
+      return initBurger(state, action);
+    default: return state;
+  }
+};
 
 export default reducer;
