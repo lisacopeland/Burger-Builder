@@ -17,5 +17,6 @@ export {
 export {
     authStart,
     authSuccess,
-    authFail
+    authFail,
+    auth
 } from './auth';

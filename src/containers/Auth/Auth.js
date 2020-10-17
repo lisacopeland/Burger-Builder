@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from "./Auth.css";
+// import axios from "axios";
+// import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../store/actions/index';
+import { connect } from "react-redux";
+
 class Auth extends Component {
 
     state = {
@@ -72,12 +77,7 @@ class Auth extends Component {
 
   authHandler = (event) => {
     event.preventDefault();
-
-    const formData = {};
-    for (let formElementId in this.state.orderForm) {
-      formData[formElementId] = this.state.orderForm[formElementId].value;
-    }
-
+    this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
   };  
 
   render() {
@@ -116,4 +116,11 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password) => 
+        dispatch(actions.auth(email, password))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);
