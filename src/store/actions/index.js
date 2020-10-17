@@ -4,7 +4,7 @@ export {
     initializeBurger,
     initIngredients,
     fetchIngredientsFailed
-} from './burgerBuilder.js';
+} from './burgerBuilder';
 
 export {
     purchaseBurger,
@@ -12,4 +12,10 @@ export {
     purchaseBurgerFail,
     purchaseBurgerInit,
     fetchOrders
-} from './order.js';
+} from './order';
+
+export {
+    authStart,
+    authSuccess,
+    authFail
+} from './auth';
