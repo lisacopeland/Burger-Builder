@@ -49,13 +49,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-// This is not needed but I am going to leave it in
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onInitPurchase: () => {
-//       dispatch(actions.purchaseBurgerInit());
-//     }
-//   };
-// };
-
 export default connect(mapStateToProps)(Checkout);
