@@ -5,7 +5,6 @@ const initialState = {
   ingredients: null,
   price: 4,
   error: false,
-  purchaseable: false,
   building: false
 };
 
@@ -18,8 +17,7 @@ const Ingredient_Prices = {
 
 const addIngredient = (state, action) => {
       const newIngredients = updateObject(state.ingredients, { [action.ingredientType]: state.ingredients[action.ingredientType] + 1});
-      return updateObject(state, 
-        {
+      return updateObject(state, {
          ingredients: newIngredients,
          price: state.price + Ingredient_Prices[action.ingredientType],
          purchaseable: updatePurchaseState(state.ingredients),

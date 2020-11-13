@@ -5,8 +5,8 @@ const initialState = {
     token: null,
     userId: null,
     error: null,
+    loading: false,
     authRedirectPath: '/',
-    loading: false
 }
 
 const authStart = (state, action) => {
@@ -15,8 +15,7 @@ const authStart = (state, action) => {
 
 const authSuccess = (state, action) => {
     console.log('hi from reducer authSuccess, token = ' + action.token);
-    return updateObject(state, 
-        { 
+    return updateObject(state, { 
             token: action.token,
             userId: action.userId,
             error: null, 
