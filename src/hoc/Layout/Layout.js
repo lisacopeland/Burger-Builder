@@ -16,7 +16,6 @@ class Layout extends Component {
     }
 
     sideDrawerOpenHandler = () => {
-        console.log('side drawer toggle clicked');
         this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer };
         });
@@ -24,7 +23,7 @@ class Layout extends Component {
     
 
     render () {
-        console.log('showSideDrawer is now ' + this.state.showSideDrawer);
+
         return (
             <Aux>
                 <Toolbar 

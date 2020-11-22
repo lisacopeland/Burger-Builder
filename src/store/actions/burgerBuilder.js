@@ -38,12 +38,10 @@ export const initIngredients = () => {
     return dispatch => {
         axios.get('https://lisa-burger-builder.firebaseio.com/ingredients.json')
         .then(response => {
-            console.log(response);
             dispatch(setIngredients(response.data));
          })
          .catch(error => {
              dispatch(fetchIngredientsFailed());
-             console.log(error);
          });
     }
 }

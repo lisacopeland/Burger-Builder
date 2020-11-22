@@ -19,7 +19,6 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         this.props.onInitIngredients();
     }
    
@@ -37,7 +36,6 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // console.log('Continuing!');
 
         // const queryParams = [];
         // for (let i in this.state.ingredients) {
